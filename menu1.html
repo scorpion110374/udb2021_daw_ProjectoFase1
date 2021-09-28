@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+		<title>Pokemon Bank</title>
+	</head>
+	<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap/bootstrap.js"></script>
+	<script type="text/javascript" src="js/pokemon.js"></script>
+	<script type="text/javascript" src="js/sweetalert2.all.min.js"></script>
+
+	<body class="bg-warning">
+		<div class="container">
+			<header>
+				<div class="row">
+					<div class="p-5 mx-auto text-center">
+						<h1>Bienvenido Moisés Eduardo Trujillo Gómez</h1>
+						<h3>Cuenta: 111-222-333-444-555</h3>
+					</div>
+				</div>
+			</header>
+			<div class="row">
+				<div class="col-sm-6">
+					<button class="menu-button" id="depositos" type="button" data-toggle="modal" data-target="#FormularioDepositos">Depositos</button>
+				</div>
+				<div class="col-sm-6">
+					<button class="menu-button" id="retiros" type="button" data-toggle="modal" data-target="#FormularioRetiros">Retiros</button>
+				</div>			
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					<button class="menu-button" id="consultas">Consulta de Saldo</button>
+				</div>
+				<div class="col-sm-6">
+					<button class="menu-button" id="servicios type="button" data-toggle="modal" data-target="#FormularioServicios">Pago Servicios</button>
+				</div>			
+			</div>
+			<footer>
+				<div class="row">
+					<div class="col text-right">
+						<button class="btn btn-lg btn-danger" id="salir">Salir</button>
+					</div>
+				</div>
+				<div class="text-center bline mt-1">
+					<p id="date"></p>
+				</div>
+			</footer>
+		</div>
+	</body>
+	<!-- Formulario Modal para depositos INICIO-->
+	<div class="modal" tabindex="-1" role="dialog" id="FormularioDepositos">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Nuevo Deposito</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <input type="number" id="valorAbono" class="form-control">
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" id="btnAplicarAbono">Aplicar Abono</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- Formulario Modal para depositos FINAL-->
+	<!-- Formulario Modal para retiros INICIO-->
+	<div class="modal" tabindex="-1" role="dialog" id="FormularioRetiros">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Nuevo Retiro</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <input type="number" id="valorRetiro" class="form-control">
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" id="btnAplicarRetiro">Aplicar Retiro</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- Formulario Modal para retiros FINAL-->	
+	<!-- Formulario Modal para pago de servicios INICIO-->
+	<div class="modal" tabindex="-1" role="dialog" id="FormularioServicios">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Nuevo Pago de Servicios</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      	<div class="form-group">
+	      		<label>Tipo de Servicio</label>
+		      	<select class="form-control form-control-md" id="tipoServicio">
+		      		<option>Favor selecione servicio</option>
+		      		<option value="Energía Electrica">Energía Electrica</option>
+		      		<option value="Agua Potable">Agua Potable</option>
+		      		<option value="Telefonía">Telefonía</option>
+		      		<option value="Internet">Internet</option>
+		      	</select>
+	      	</div>
+	      	<div class="form-group">
+	      		<label>Número de Referencia</label>
+	        	<input type="text" id="numReferencia" class="form-control">
+	        </div>	      	
+	      	<div class="form-group">
+	      		<label>Valor a cancelar</label>
+	        	<input type="number" id="valorPago" class="form-control">
+	        </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" id="btnAplicarPago">Aplicar Pago</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- Formulario Modal para pago de servicios FINAL-->	
+</html>
+
+<!-- Script para validar exitencia de localStorage y direccionar a pagina login -->
+<script type="text/javascript">
+$( document ).ready(function() {
+
+	//Verificar si pin existe
+	let usuario = localStorage.getItem('pinUsuario');
+	if(usuario == null){
+		window.location.href = 'index.html';
+	};
+
+});	
+</script>

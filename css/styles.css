@@ -1,0 +1,57 @@
+.menu-button {
+  display: block;
+  width: 100%;
+  border: black;
+  background-color: #04AA6D;
+  color: white;
+  margin: 10px 10px 60px 10px;
+  font-size: 48px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 30px;
+  height: 150px;
+  width:500px;
+}
+
+.menu-button:hover {
+  background-color: #ddd;
+  color: black;
+  border: black;
+}
+
+.vinculo {
+	color: black;
+	font-size: 40px;
+	font-family: "Impact", Times, serif;
+}
+
+.bline {
+  border-top: 2px solid black;
+}
+
+.modal {
+  background: green;
+  //position: absolute;
+  float: left;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* @media screen and (max-width:400px){
+  .menu-button {
+    display: inline-block;
+    width: 80%;
+    border: black;
+    background-color: #04AA6D;
+    color: white;
+    margin-bottom: 5px;
+    padding: 0px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 10px;
+    height: 40px;
+    width:125px;
+  }  
+} */

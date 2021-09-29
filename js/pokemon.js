@@ -28,7 +28,7 @@ $( document ).ready(function() {
 			  title: 'Oops...',
 			  text: 'Pin incorrecto!',
 			  footer: '<a href="index.html">Intente de nuevo</a>'
-			})
+			});
 		}
 	});
 
@@ -104,12 +104,23 @@ $( document ).ready(function() {
 		fillTable(transacciones);
 	});
 
-	//Click Consultas
-	$('#consultas').on('click',function(){
-		window.location.href = 'menu3.html';
-			console.log(saldo);
-			console.log(resetSaldo);		
+	//al abri modal transacciones
+	$('#modalTransacciones').on('shown.bs.modal',function(){
+		$('#saldoActual').html("Su saldo actual es de : $ "+ saldo.toFixed(2));
 	});
+
+	//Botones para ocultar/mostrar tabla o grafico
+	$('#btnTransacciones').on('click',function(){
+		console.log('tabla visible');
+		$('#transaccionesBody').removeClass('collapse');
+		$('#graficoBody').addClass('collapse');
+	});
+	//Botones para ocultar/mostrar tabla o grafico
+	$('#btnGrafico').on('click',function(){
+		console.log('grafico visible');
+		$('#transaccionesBody').addClass('collapse');
+		$('#graficoBody').removeClass('collapse');
+	});	
 
 	//Click Inicio
 	$('#inicio').on('click',function(){
@@ -133,17 +144,25 @@ $( document ).ready(function() {
 			  text: 'Debe llenar todos los campos'
 			})			
 		}else{
-			saldo = parseFloat(saldo) - parseFloat($('#valorPago').val());
-			transacciones.push({fTransaccion:todayDate + " " + nowTime,vTransaccion:parseFloat($('#valorPago').val())*-1,dTransaccion:'Pago Servicio de ' + $('#tipoServicio').val() + ' Ref: '+$('#numReferencia').val()});
-			Swal.fire({
-			  icon: 'success',
-			  title: 'Pago efectuado',
-			  text: 'Su nuevo saldo es $ ' + saldo
-			})			
-			$('#FormularioServicios').modal('hide');	
-			console.log(saldo);
-			console.log(resetSaldo);
-			console.log(transacciones);
+			if(saldo < $('#valorPago').val()){
+				Swal.fire({
+				  icon: 'error',
+				  title: 'Saldo insuficiente!',
+				  text: 'Su saldo actual es de $' - saldo.toFixed(2)
+				})			
+			}else{
+				saldo = parseFloat(saldo) - parseFloat($('#valorPago').val());
+				transacciones.push({fTransaccion:todayDate + " " + nowTime,vTransaccion:parseFloat($('#valorPago').val())*-1,dTransaccion:'Pago Servicio de ' + $('#tipoServicio').val() + ' Ref: '+$('#numReferencia').val()});
+				Swal.fire({
+				  icon: 'success',
+				  title: 'Pago efectuado',
+				  text: 'Su nuevo saldo es $ ' + saldo
+				})			
+				$('#FormularioServicios').modal('hide');	
+				console.log(saldo);
+				console.log(resetSaldo);
+				console.log(transacciones);
+			}
 		}
 	});
 
@@ -172,12 +191,13 @@ $( document ).ready(function() {
 	}
 
 function fillTable(data){
+	$('table#tabTransacciones tbody').html('');
 	for (var i = 0; i < data.length; i++) {
   		$('table#tabTransacciones tbody').append(
   			'<tr>'+
-  			'<td>'+ data[i].fTransaccion +'</td>'+
-  			'<td class="text-right">$ '+ data[i].vTransaccion.toFixed(2) +'</td>'+
-  			'<td>'+ data[i].dTransaccion +'</td>'+ 
+  			'<td style="width:30%">'+ data[i].fTransaccion +'</td>'+
+  			'<td class="text-right" style="width:20%">$ '+ data[i].vTransaccion.toFixed(2) +'</td>'+
+  			'<td style="width:50%">'+ data[i].dTransaccion +'</td>'+ 
   			'</tr>'
   		);
   	};	

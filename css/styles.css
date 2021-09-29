@@ -19,6 +19,26 @@
   border: black;
 }
 
+.menu-button-modal {
+  display: block;
+  width: 25%;
+  border: black;
+  background-color: #04AA6D;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 10px;
+  height: 50px;
+  width:100px;
+}
+
+.menu-button-modal:hover {
+  background-color: #ddd;
+  color: black;
+  border: black;
+}
+
 .vinculo {
 	color: black;
 	font-size: 40px;
@@ -36,6 +56,14 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+.form-control2{
+  font-size: 2rem;
+}
+
+.form-control3{
+  font-size: 2rem;
 }
 
 /* @media screen and (max-width:400px){

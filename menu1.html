@@ -11,6 +11,8 @@
 	<script type="text/javascript" src="js/bootstrap/bootstrap.js"></script>
 	<script type="text/javascript" src="js/pokemon.js"></script>
 	<script type="text/javascript" src="js/sweetalert2.all.min.js"></script>
+	<script type="text/javascript" src="js/validate.min.js"></script>
+	<script type="text/javascript" src="js/chart.min.js"></script>
 
 	<body class="bg-warning">
 		<div class="container">
@@ -32,7 +34,7 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-6">
-					<button class="menu-button" id="consultas">Consulta de Saldo</button>
+					<button class="menu-button" id="consultas"  type="button" data-toggle="modal" data-target="#modalTransacciones">Consulta de Saldo</button>
 				</div>
 				<div class="col-sm-6">
 					<button class="menu-button" id="servicios type="button" data-toggle="modal" data-target="#FormularioServicios">Pago Servicios</button>
@@ -61,7 +63,7 @@
 	        </button>
 	      </div>
 	      <div class="modal-body">
-	        <input type="number" id="valorAbono" class="form-control">
+	        <input type="number" id="valorAbono" class="form-control form-control3">
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-primary" id="btnAplicarAbono">Aplicar Abono</button>
@@ -82,7 +84,7 @@
 	        </button>
 	      </div>
 	      <div class="modal-body">
-	        <input type="number" id="valorRetiro" class="form-control">
+	        <input type="number" id="valorRetiro" class="form-control form-control3">
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-primary" id="btnAplicarRetiro">Aplicar Retiro</button>
@@ -91,7 +93,52 @@
 	    </div>
 	  </div>
 	</div>
-	<!-- Formulario Modal para retiros FINAL-->	
+	<!-- Formulario Modal para retiros FINAL-->
+	<!-- Formulario Modal para retiros INICIO-->
+	<div class="modal" tabindex="-1" role="dialog" id="modalTransacciones">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+				<div class="row w-100">
+					<div class="col col-sm-6">
+						<h3 class="btn btn-lg btn-primary" id="saldoActual"></h3>
+					</div>
+					<div class="col col-sm-3">
+						<button class="menu-button-modal" id="btnTransacciones">Transacciones</button>
+					</div>
+					<div class="col col-sm-3">
+						<button class="menu-button-modal" id="btnGrafico">Gráfico</button>
+					</div>	
+				</div>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+	      </div>
+	      <div class="modal-body">
+	      	<div id="transaccionesBody" class="et">
+				<table id="tabTransacciones" class="table table-sm table-bordered table-condensed table-hover">
+					<thead>
+						<tr>
+							<th class="text-center w-40">Fecha</th>
+							<th class="text-center w-20">Valor</th>
+							<th class="text-center w-40" style="width: 35%;">Descripción</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+			<div id="graficoBody" class="et collapse">
+				<canvas id="graficoTransacciones" width="100%" height="60%"></canvas>
+			</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- Formulario Modal para retiros FINAL-->		
 	<!-- Formulario Modal para pago de servicios INICIO-->
 	<div class="modal" tabindex="-1" role="dialog" id="FormularioServicios">
 	  <div class="modal-dialog" role="document">
@@ -103,24 +150,26 @@
 	        </button>
 	      </div>
 	      <div class="modal-body">
-	      	<div class="form-group">
-	      		<label>Tipo de Servicio</label>
-		      	<select class="form-control form-control-md" id="tipoServicio">
-		      		<option>Favor selecione servicio</option>
-		      		<option value="Energía Electrica">Energía Electrica</option>
-		      		<option value="Agua Potable">Agua Potable</option>
-		      		<option value="Telefonía">Telefonía</option>
-		      		<option value="Internet">Internet</option>
-		      	</select>
-	      	</div>
-	      	<div class="form-group">
-	      		<label>Número de Referencia</label>
-	        	<input type="text" id="numReferencia" class="form-control">
-	        </div>	      	
-	      	<div class="form-group">
-	      		<label>Valor a cancelar</label>
-	        	<input type="number" id="valorPago" class="form-control">
-	        </div>
+	      	<form id="formServicios">
+		      	<div class="form-group">
+		      		<label>Tipo de Servicio</label>
+			      	<select class="form-control form-control-md" id="tipoServicio">
+			      		<option>Favor selecione servicio</option>
+			      		<option value="Energía Electrica">Energía Electrica</option>
+			      		<option value="Agua Potable">Agua Potable</option>
+			      		<option value="Telefonía">Telefonía</option>
+			      		<option value="Internet">Internet</option>
+			      	</select>
+		      	</div>
+		      	<div class="form-group">
+		      		<label>Número de Referencia</label>
+		        	<input type="text" id="numReferencia" class="form-control form-control2">
+		        </div>	      	
+		      	<div class="form-group">
+		      		<label>Valor a cancelar</label>
+		        	<input type="number" id="valorPago" class="form-control form-control3">
+		        </div>
+		    </form>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-primary" id="btnAplicarPago">Aplicar Pago</button>
@@ -141,6 +190,54 @@ $( document ).ready(function() {
 	if(usuario == null){
 		window.location.href = 'index.html';
 	};
+
+
+	// Bar chart
+	var ctx = document.getElementById('graficoTransacciones').getContext('2d');
+	var myChart = new Chart(ctx, {
+	    type: 'line',
+	    data: {
+	      labels: ["Depositos", "Retiros", "Energia", "Agua", "Telefonía","Internet"],
+	      datasets: [
+	        {
+	          label: "US Dolares",
+	          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+	          data: [100,200,300,400,500,600]
+	        }
+	      ]
+	    },
+	    options: {
+	      title: {
+	        display: true,
+	        text: 'Gráfico de Transaciones'
+	      }
+	    }
+	});
+
+	// Bar chart
+
+	// var values = Object.keys(transacciones[""])
+	// var ctx = document.getElementById('graficoTransacciones').getContext('2d');
+	// var myChart = new Chart(ctx, {
+	//      type: 'line',
+	//      data: {
+	//       labels: ["Depositos", "Retiros", "Energia", "Agua", "Telefonía","Internet"],
+	//       datasets: [
+	//         {
+	//           label: "US Dolares",
+	//           backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+	//           data: [100,200,300,400,500,600]
+	//         }
+	//       ]
+	//     },
+	//     options: {
+	//       title: {
+	//         display: true,
+	//         text: 'Gráfico de Transaciones'
+	//       }
+	//     }
+	// });	
+
 
 });	
 </script>
